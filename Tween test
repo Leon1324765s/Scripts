@@ -1,0 +1,71 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Leon1324765s/Scripts/main/Lib", true))()
+local players = {}
+local tweens  = game:GetService("TweenService")
+
+
+for k,v in next,game:GetService('Players'):GetPlayers() do 
+	if v ~= game:GetService('Players').LocalPlayer then 
+		players[v.Name] = v.Name
+	end
+end
+
+game:GetService('Players').PlayerAdded:Connect(function(p)
+	if not p.Name then 
+		delay(3,function()players[p.Name] = v.Name end)
+	else
+		players[p.Name] = v.Name
+	end
+end)
+
+game:GetService('Players').PlayerRemoving:Connect(function(p)
+    if players[p.Name] then
+        players[p.Name] = nil
+    end
+end)
+
+local w = library:CreateWindow('Universal Teleport')
+local t = w:Toggle('Tween', {
+	flag = "yes"}
+	)
+local m = w:Toggle('Use Distance', {
+	flag = "dist"},function()if w.flags.yes == true then 
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Universal Teleport"; -- Required. Has to be a string!
+    	Text = "Disable Tween for this feature to work!"; -- Required. Has to be a string!
+   		 Duration = 8; -- Optional, defaults to 5 seconds
+    	Button1 = "OK SIR"; -- Optional, makes a button appear with the given text that, when clicked, fires the Callback if it's given
+	})
+	end
+end)
+local s = w:Slider("Speed", {
+   location = shared;
+   min = 50;
+   max = 1;
+   flag = 'Speed'
+})
+w:SearchBox("Players", {
+   location = shared;
+   flag = "players";
+   list = players
+}, 
+function(p)
+	if w.flags.yes == true then 
+		local info = TweenInfo.new(shared.Speed)
+		local phum = game:GetService('Players').LocalPlayer.Character.HumanoidRootPart
+		phum.Anchored = true
+		local move = tweens:Create(phum,info,{CFrame = game:GetService('Players')[p].Character.HumanoidRootPart.CFrame})
+		move:Play()
+		wait(shared,Speed)
+		phum.Anchored = false
+	elseif w.flags.dist == true then 
+		local info = TweenInfo.new(0.015 * (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - game:GetService('Players')[p].Character.HumanoidRootPart.Position).Magnitude)
+		local phum = game:GetService('Players').LocalPlayer.Character.HumanoidRootPart
+		local move = tweens:Create(phum,info,{CFrame = game:GetService('Players')[p].Character.HumanoidRootPart.CFrame})
+		phum.Anchored = true
+		move:Play()
+		wait(0.015 * (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - game:GetService('Players')[p].Character.HumanoidRootPart.Position).Magnitude)
+		phum.Anchored = false
+	else
+		game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService('Players')[p].Character.HumanoidRootPart.CFrame
+	end
+end)
