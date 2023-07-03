@@ -1,0 +1,29 @@
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Leon1324765s/Scripts/main/Library'))()
+
+local w = library:CreateWindow("LUCKY BLOCKS") -- Creates the window
+
+local b = w:CreateFolder("Blocks") -- Creates the folder(U will put here your buttons,etc)
+
+local c = w:CreateFolder("Destroy")
+
+b:Button("Normal",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("SpawnLuckyBlock"):FireServer()
+end)
+
+b:Button("Super",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("SpawnSuperBlock"):FireServer()
+end)
+
+b:Button("Diamond",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("SpawnDiamondBlock"):FireServer()
+end)
+
+b:Button("Rainbow",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("SpawnRainbowBlock"):FireServer()
+end)
+
+b:Button("Galaxy",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("SpawnGalaxyBlock"):FireServer()
+end)
+
+c:DestroyGui()
