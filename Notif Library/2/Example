@@ -1,0 +1,36 @@
+local notifications = loadstring(game:HttpGet(("https://raw.githubusercontent.com/AbstractPoo/Main/main/Notifications.lua"),true))()
+notifications:notify{
+    Title = "Warning!",
+    Description = "You are going to go idle, would you like to enable anti-afk?",
+    Accept = {
+    Text = "Yes",
+        Callback = function()
+            print("Accepted")
+        end,
+    },
+    Dismiss = {
+        Text = "No",
+        Callback = function()
+            print("Declined")
+        end,
+    }
+}
+
+wait(3)
+
+notifications:message{
+    Title = "Walkspeed <font color='rgb(130, 220, 120)'>Enabled</font>",
+    Description = "Current walkspeed: <b>32</b>",
+    Icon = 6023426926
+}
+
+wait(5)
+
+notifications:notify{
+    Title = "Notifications showcase",
+    Description = "Notifications module by Abstract#8007",
+    Accept = {
+        Text = "Done"
+    },
+    Length = 10
+}
