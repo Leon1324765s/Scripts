@@ -1,29 +1,95 @@
-local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Leon1324765s/Scripts/main/Library'))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Leon1324765s/Scripts/main/Notif%20Library/3/RBS%20Lib"))()
+local Forums = Library.new("Lucky Block Battlegrounds")
 
-local w = library:CreateWindow("LUCKY BLOCKS") -- Creates the window
+local preview = Forums:NewSection("Blocks")
+local preview2 = Forums:NewSection("Player")
+local givewait = 2
+local toggleState = false -- Added toggle state variable
 
-local b = w:CreateFolder("Blocks") -- Creates the folder(U will put here your buttons,etc)
+preview:Seperator()
 
-local c = w:CreateFolder("Destroy")
-
-b:Button("Normal",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("SpawnLuckyBlock"):FireServer()
+preview:NewTextBox("Delay (Standard = 2)", function(text)
+    local delay = tonumber(text)
+    if delay then
+        givewait = delay
+    end
 end)
 
-b:Button("Super",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("SpawnSuperBlock"):FireServer()
+local selectedItem = "Normal"
+local list = {
+    "Normal",
+    "Super",
+    "Diamond",
+    "Rainbow",
+    "Galaxy",
+}
+preview:NewDropdown("Blocks", list, function(item)
+    selectedItem = item
 end)
 
-b:Button("Diamond",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("SpawnDiamondBlock"):FireServer()
+preview:NewToggle("Activate", function(state)
+    _G.loops = state
+    toggleState = state -- Update toggle state variable
+    while toggleState do -- Use toggle state variable in the loop condition
+        wait(givewait)
+        if toggleState then -- Check toggle state again after wait
+            if selectedItem == "Normal" then
+                selectedItem = "Lucky"
+            end
+            game:GetService("ReplicatedStorage"):WaitForChild("Spawn"..selectedItem.."Block"):FireServer()
+        end
+    end
 end)
 
-b:Button("Rainbow",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("SpawnRainbowBlock"):FireServer()
+preview:Seperator()
+
+preview2:Seperator()
+
+local selectedSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+local selectedJump = game.Players.LocalPlayer.Character.Humanoid.JumpPower
+local selectedHip = game.Players.LocalPlayer.Character.Humanoid.HipHeight
+
+preview2:NewSlider("WalkSpeed", 16, 500, function(speed)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+    selectedSpeed = speed
 end)
 
-b:Button("Galaxy",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("SpawnGalaxyBlock"):FireServer()
+preview2:NewSlider("JumpPower", 50, 500, function(jump)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+    selectedJump = jump
 end)
 
-c:DestroyGui()
+preview2:NewTextBox("HipHeight (Standard = 1,35)", function(hip)
+    local hipy = tonumber(hip)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = hipy
+    if hipy then
+        selectedHip = hipy
+    end
+end)
+
+_G.speedloop = true
+while wait(0.1) do
+    if _G.speedloop == true then
+        if game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= selectedSpeed then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = selectedSpeed
+        end
+    end
+end
+
+_G.jumploop = true
+while wait(0.1) do
+    if _G.jumploop == true then
+        if game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= selectedJump then
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = selectedJump
+        end
+    end
+end
+
+_G.hiploop = true
+while wait(0.1) do
+    if _G.hiploop == true then
+        if game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= selectedHip then
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = selectedHip
+        end
+    end
+end
