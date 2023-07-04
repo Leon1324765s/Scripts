@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Leon1324765s/Scripts/main/Notif%20Library/3/RBS%20Lib"))()
-local Forums = Library.new("Lucky Block Battlegrounds")
+local Forums = Library.new("Lucky Blocks Battlegrounds")
 
 local preview = Forums:NewSection("Blocks")
 local preview2 = Forums:NewSection("Player")
