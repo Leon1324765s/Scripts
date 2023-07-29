@@ -1,67 +1,8 @@
-local ToggleEvent = Instance.new("RemoteEvent")
-ToggleEvent.Name = "ToggleEvent"
-ToggleEvent.Parent = game.ServerScriptService
-
-local UserInputService = game:GetService("UserInputService")
-local toggleKey = Enum.KeyCode.T
-
-UserInputService.InputBegan:Connect(function(input, isProcessed)
-    if not isProcessed and input.KeyCode == toggleKey then
-        game.ServerScriptService.ToggleEvent:FireServer()
-    end
-end)
-
-local featureEnabled = false
-
-local function activateFeature()
-local hiddenfling = false
-     if game:GetService("ReplicatedStorage"):FindFirstChild("juisdfj0i32i0eidsuf0iok") then
-         hiddenfling = true
-     else
-         hiddenfling = true
-         local detection = Instance.new("Decal")
-         detection.Name = "juisdfj0i32i0eidsuf0iok"
-         detection.Parent = game:GetService("ReplicatedStorage")
-         local function fling()
-            local hrp = nil
-            local c = nil
-            local vel = nil
-            local movel = 0.1
-             while true do
-                game:GetService("RunService").Heartbeat:Wait()
-                if hiddenfling then
-                    local lp = game.Players.LocalPlayer
-                    while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
-                        game:GetService("RunService").Heartbeat:Wait()
-                        c = lp.Character
-                        hrp = c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
-                     end
-                     if hiddenfling then
-                         vel = hrp.Velocity
-                         hrp.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
-                         game:GetService("RunService").RenderStepped:Wait()
-                         if c and c.Parent and hrp and hrp.Parent then
-                             hrp.Velocity = vel
-                         end
-                    game:GetService("RunService").Stepped:Wait()
-                    if c and c.Parent and hrp and hrp.Parent then
-                        hrp.Velocity = vel + Vector3.new(0, movel, 0)
-                        movel = movel * -1
-                    end
-                end
-            end
-        end
-    end
-    fling()
-end
-    featureEnabled = true
-end
-
-local function deactivateFeature()
 local hiddenfling = true
 local Players = game:GetService("Players")
 local cmdlp = game.Players.LocalPlayer
 local plr = cmdlp
+local cmdm = plr:GetMouse()
 
 function sFLY(vfly)
     FLYING = false
@@ -257,13 +198,3 @@ end
 		 FLYING = false
 			 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
 			 hiddenfling = false
-    featureEnabled = false
-end
-
-game.ServerScriptService.ToggleEvent.OnServerEvent:Connect(function(player)
-    if featureEnabled then
-        deactivateFeature()
-    else
-        activateFeature()
-    end
-end)
