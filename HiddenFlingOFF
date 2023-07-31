@@ -1,6 +1,7 @@
+local Player = game.Players.LocalPlayer
+local Players = game:GetService("Players")
 local oldcframe = Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local hiddenfling = true
-local Players = game:GetService("Players")
 local cmdlp = game.Players.LocalPlayer
 local plr = cmdlp
 local cmdm = plr:GetMouse()
@@ -9,7 +10,7 @@ local Char = LC.Character
 local Target = Char
 local User = LC
 
-function sFLY(vfly)
+local function sFLY(vfly)
     FLYING = false
     local speedofthefly = 10
     local speedofthevfly = 10
