@@ -49,8 +49,8 @@ local function onKeyPress(inputObject, gameProcessedEvent)
     end
 
     local keyPressed = inputObject.KeyCode
-    if keyPressed == Enum.KeyCode.F then
-        hiddenfling = not hiddenfling -- Toggle "hiddenfling" when the 'F' key is pressed
+    if keyPressed == Enum.KeyCode.PageUp then
+        hiddenfling = not hiddenfling
         if hiddenfling then
             activateFling()
         else
