@@ -3,7 +3,7 @@ if game:GetService("ReplicatedStorage"):FindFirstChild("juisdfj0i32i0eidsuf0iok"
     hiddenfling = true
 else
     hiddenfling = true
-    detection = Instance.new("Decal")
+    local detection = Instance.new("Decal")
     detection.Name = "juisdfj0i32i0eidsuf0iok"
     detection.Parent = game:GetService("ReplicatedStorage")
     local function fling()
