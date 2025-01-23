@@ -1,0 +1,8 @@
+local partName = "cash giver (devs plz move to server storage when done using)"
+local a = game.Workspace[partName] and game.Workspace[partName]:FindFirstChild("ClickDetector")
+
+if a then
+    a.MaxActivationDistance = math.huge
+
+    fireclickdetector(a)
+end
